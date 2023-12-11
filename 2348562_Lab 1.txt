@@ -1,0 +1,283 @@
+1.
+
+import java.util.Scanner;
+public class Performance {
+    int[] mark = new int[60];
+    int Mode, high, least;
+
+    int[] rep = new int[10];
+    Performance() {
+        Mode = high = least = -1;
+ for (int i = 0; i < 10; i++) 
+        {
+
+  rep[i] =0;
+    }
+    }
+
+    void readMarks() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter the marks of 10 students");
+        for (int i = 0; i < 10; i++)
+        {
+            mark[i] = scanner.nextInt();
+            if(mark[i]> 100 || mark[i] <0)
+            {
+             System.out.println("Invalid input ..Please enter values between 0 and 100");
+             break;
+            }
+        }
+    }
+ int highestMark() {
+        high = mark[0];
+        for (int i = 0; i < 10; i++) {
+            if (high < mark[i]) {
+                high = mark[i];
+            }
+        }
+        return high;
+    }
+
+    int leastMark() {
+        least = mark[0];
+        for (int i = 0; i < 10; i++) {
+            if (least > mark[i])
+                least = mark[i];
+        }
+
+        return least;
+    }
+
+
+
+    int getMode() {
+                int[] freq = new int[10];
+    int k = 0;
+    int samp[] = new int[10];
+ for(int i =0;i<10;i++)
+ samp[i] =mark[i];
+
+    for (int i = 0; i <= 9; i++)
+    {
+        for (int j = i + 1; j <= 9; j++) 
+        {
+            if (samp[i] == samp[j] && samp[i]!= -1)
+            {
+                rep[k] = samp[i];
+                freq[k]++;
+                samp[j] = -1;
+            
+            }
+        }
+        k++;
+    }
+
+    int maxFreq = freq[0];
+    int modeIndex = 0;
+
+    for (int i = 0; i < 10; i++) {
+        if (freq[i] > maxFreq) {
+            maxFreq = freq[i];
+            modeIndex = i;
+        }
+    }
+
+    if (maxFreq == 0) {
+        return -1; // No mode found
+    }
+
+    Mode = rep[modeIndex];
+    return Mode;
+}
+
+int getFreqAtMode() {
+    int k = 0;
+    if(Mode == -1)
+     Mode=getMode();
+    
+    if (Mode == -1) {
+        return -1; // No mode found
+    }
+    else
+    {
+        for (int i=0;i<10;i++)
+        {
+            if(Mode == mark[i])
+            k++;
+        }
+            return k;
+    }
+
+}
+    void display() {
+        for (int i = 0; i < 10; i++)
+            System.out.println(mark[i]);
+    }
+
+    public static void main(String args[]) {
+        Performance p = new Performance();
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+        do {
+            System.out.println("Menu");
+            System.out.println("1.Enter the details:");
+            System.out.println("2.Mode");
+            System.out.println("3.Mode Frequency");
+            System.out.println("4.Highest Mark");
+            System.out.println("5.Least Mark");
+            System.out.println("6.Display");
+            System.out.println("7.Exit");
+            System.out.println("Please enter your choice:");
+            choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    p.readMarks();
+                    break;
+                case 2:
+                    int S = p.getMode();
+                    if(S == -1)
+                    System.out.println("There is no Mode for this!!");
+                    else
+                    System.out.println("Mode: " + S);
+                    break;
+                case 3:
+                     S = p.getFreqAtMode();
+                    if(S == -1)
+                    System.out.println("There is no Mode for this!!");
+                    else
+                    System.out.println("Freq of Mode:" + S);
+                    break;
+                case 4:
+                    System.out.println("Highest Mark:" + p.highestMark());
+                    break;
+                case 5:
+                    System.out.println("Least Mark:" + p.leastMark());
+                    break;
+                case 6:
+                    p.display();
+                    break;
+                case 7:
+                    System.out.println("Exiting!!!");
+                    System.exit(0);
+                default:
+                    System.out.println("Invalid option!!!");
+                    break;
+            }
+        } while (choice != 7);
+    }
+}
+
+
+
+
+2. 
+
+import java.util.Scanner;
+
+public class AlphabetWarGame {
+
+    String word;;
+    int[] S = new int[4];
+    
+
+    AlphabetWarGame() {
+       int m=4;
+        for(int i=0;i<3;i++)
+        {
+    this.S[i] =m;
+    m--;
+        }
+
+    }
+        AlphabetWarGame(int[] A) 
+        {
+            for(int i=0;i<3;i++)
+            {
+    this.S[i] =A[i];
+            }
+        System.out.println("The values are updated!!");
+        
+}
+    void game() {
+        String left= " ";
+        String right =" ";
+        int i = 0;
+        while (i < word.length()) {
+            if (word.charAt(i)== 'w' || word.charAt(i)== 'W' || word.charAt(i) == 'p' || word.charAt(i) == 'P' || word.charAt(i) == 'b' || word.charAt(i) == 'B' || word.charAt(i) == 's' || word.charAt(i) == 's') {
+                left += word.charAt(i);
+            } else if (word.charAt(i) == 'm' || word.charAt(i)== 'M' || word.charAt(i)== 'Q' || word.charAt(i) == 'q' || word.charAt(i) == 'd' || word.charAt(i)== 'D' || word.charAt(i) == 'z' || word.charAt(i)== 'Z') {
+                right += word.charAt(i);
+            } else {
+                System.out.println("Invalid characters found");
+                break;
+            }
+            i++;
+        }
+        game(left,right);
+    }
+
+    void game(String left,String right)
+    {
+        System.out.println(left);
+int lcount=0;
+int rcount=0;
+        int i = 0;
+        while (i < left.length()) {
+            if (left.charAt(i) == 'w' || left.charAt(i) == 'w') lcount += S[0];
+            else if (left.charAt(i) == 'p' || left.charAt(i) == 'P') lcount += S[1];
+            else if (left.charAt(i) == 'b' || left.charAt(i) == 'B') lcount += S[2];
+            else if( left.charAt(i) == 's'|| left.charAt(i) == 'S') lcount += S[3];
+            i++;
+        }
+        i = 0;
+        while (i < right.length()) {
+            if (right.charAt(i) == 'm' || right.charAt(i) == 'M') rcount += S[0];
+            else if (right.charAt(i) == 'q' || right.charAt(i) == 'Q') rcount += S[1];
+            else if (right.charAt(i) == 'd' || right.charAt(i) == 'D') rcount += S[2];
+            else if (right.charAt(i) == 'Z' || right.charAt(i)
+            == 'z') rcount += S[3];
+            i++;
+        }
+        if (lcount > rcount) System.out.println("Left side wins" + lcount);
+        else if (lcount < rcount) System.out.println("Right side wins" + rcount);
+        else System.out.println("Let's fight again");
+    }
+    public static void main(String args[]) {
+        AlphabetWarGame obj1 = new AlphabetWarGame();
+        Scanner scanner = new Scanner(System.in);
+        int choice = 0;
+        int[] v = new int[4];
+        do {
+            System.out.println("---------CALL OF DUTY-------------");
+            System.out.println("Menu:");
+            System.out.println("1. Start Game");
+            System.out.println("2. Change strength");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Please enter the word:");
+                    obj1.word = scanner.next();
+                    obj1.game();
+                    break;
+                case 2:
+                    System.out.println("Please enter the strengths to change: a b c d");
+                    for(int i=0;i<3;i++)
+                    v[i] = scanner.nextInt();
+                obj1 = new AlphabetWarGame(v);
+                    break;
+                case 3:
+                    System.out.println("Exiting the Game!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please enter a valid option.");
+                    break;
+            }
+
+        } while (choice != 3);
+    }
+}
+
+
