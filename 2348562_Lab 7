@@ -1,0 +1,80 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TreeSet;
+
+// Customer class
+class Customer {
+    private String customerId;
+    private String name;
+    // Other customer details and methods
+
+    public Customer(String customerId, String name) {
+        this.customerId = customerId;
+        this.name = name;
+    }
+    // Other methods specific to customer management
+}
+
+// Product class
+class Product {
+    private String productId;
+    private String productName;
+    // Other product details and methods
+
+    public Product(String productId, String productName) {
+        this.productId = productId;
+        this.productName = productName;
+    }
+    // Other methods specific to product management
+}
+
+// Order class
+class Order {
+    private String orderId;
+    private Customer customer;
+    private ArrayList<Product> products;
+    // Other order details and methods
+
+    public Order(String orderId, Customer customer) {
+        this.orderId = orderId;
+        this.customer = customer;
+        this.products = new ArrayList<>();
+    }
+    // Methods to manage order processing and history
+}
+
+public class AmazonCRMSystem {
+    public static void main(String[] args) {
+        // Creating data structures for managing customers, products, and orders
+        ArrayList<Customer> customers = new ArrayList<>();
+        HashMap<String, Product> productMap = new HashMap<>();
+        HashMap<Customer, HashSet<Product>> customerProductMap = new HashMap<>();
+        TreeSet<Customer> sortedCustomers = new TreeSet<>();
+
+        // Adding customers
+        Customer customer1 = new Customer("C001", "John Doe");
+        Customer customer2 = new Customer("C002", "Jane Smith");
+        customers.add(customer1);
+        customers.add(customer2);
+
+        // Adding products
+        Product product1 = new Product("P001", "Product A");
+        Product product2 = new Product("P002", "Product B");
+        productMap.put("P001", product1);
+        productMap.put("P002", product2);
+
+        // Associating products with customers
+        HashSet<Product> productsForCustomer1 = new HashSet<>();
+        productsForCustomer1.add(product1);
+        customerProductMap.put(customer1, productsForCustomer1);
+
+        HashSet<Product> productsForCustomer2 = new HashSet<>();
+        productsForCustomer2.add(product2);
+        customerProductMap.put(customer2, productsForCustomer2);
+
+        // Sorting customers
+        sortedCustomers.addAll(customers);
+
+    }
+}
